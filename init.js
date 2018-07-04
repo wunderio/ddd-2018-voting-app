@@ -1,6 +1,7 @@
 load('api_config.js');
 load('api_events.js');
 load('api_gpio.js');
+load('api_mqtt.js');
 load('api_net.js');
 load('api_sys.js');
 load('api_timer.js');
@@ -25,6 +26,7 @@ let button2 = 14;
 
 let pwm_freq = 100;
 
+
 let endpoint = '';
 //let endpoint = 'http://example.com/';
 let api_key = '';
@@ -43,36 +45,37 @@ GPIO.set_mode(led1, GPIO.MODE_OUTPUT);
 GPIO.set_mode(led2, GPIO.MODE_OUTPUT);
 
 
-// Wait some time before starting the fading of the buttons.
+
+
 Timer.set(1000, 0, function() {
   start_viz();
 }, null);
 
 
-// Regular debug information.
+
 Timer.set(10000, Timer.REPEAT, function() {
   print('uptime:', Sys.uptime(), getInfo(), t);
 }, null);
 
-// Detect presses of the onboard button, not really needed.
+
 GPIO.set_button_handler(button, GPIO.PULL_UP, GPIO.INT_EDGE_NEG, 20, function() {
   print('Onboard button');
 }, null);
 
 
-// Detect button 1 presses.
 GPIO.set_button_handler(button1, GPIO.PULL_UP, GPIO.INT_EDGE_NEG, 20, function() {
   print('button 1');
-  stop_viz();
+  led_value = 0.9;
+  led_increment = -0.002;
   start_blinking(led1);
   
   cast_vote('carrot');
 }, null);
 
-// Detect button 2 presses.
 GPIO.set_button_handler(button2, GPIO.PULL_UP, GPIO.INT_EDGE_NEG, 20, function() {
   print('button 2');
-  stop_viz();
+  led_value = 0.1;
+  led_increment = 0.002;
   start_blinking(led2);
   
   cast_vote('apple');
@@ -105,13 +108,10 @@ function cast_vote(option) {
     data: 'api_key=' + api_key,
     success: function(body, full_http_msg) {
       print('success:', body); 
-      
-      stop_blinking();
       start_viz();
     },
     error: function(err) { 
       print('error:', err);
-      stop_blinking();
       start_viz();
     }
   });
@@ -122,7 +122,8 @@ let led_increment = 0.002;
 let t = 0;
 
 function start_viz() {
-
+  stop_blinking();
+  stop_viz();
   t = Timer.set(5, Timer.REPEAT, function() {
     
     if (led_value >= 1 || led_value <= 0) {
@@ -149,10 +150,12 @@ let blink_t = 0;
 let blink_state = 0;
 let blink_pin = 0;
 function start_blinking(pin) {
+  stop_blinking();
+  stop_viz();
   print('Start blinking');
   blink_pin = pin;
   
-  blink_t = Timer.set(50, Timer.REPEAT, function(pin) {
+  blink_t = Timer.set(5, Timer.REPEAT, function(pin) {
     
     PWM.set(led1, pwm_freq, 0);
     PWM.set(led2, pwm_freq, 0);

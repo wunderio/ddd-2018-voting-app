@@ -13,3 +13,6 @@ booth or at the event.
 * Has blinking feature for indicating request send
 * Sends a request of the votes to Drupal installation
 
+## Version 2: Wednesday morning
+* Fixed interfering visualisation when by pressing buttons too fast
+* Improved standby visualisation starting state for more intuitive UX
