@@ -5,6 +5,8 @@ made on top of [Mongoose OS](https://mongoose-os.com/).
 This is made for Drupal Dev Days 2018 Lisbon event. Meet us at the
 booth or at the event.
 
+![Image of apples and device](device.jpg)
+
 # Changelog
 
 ## Version 1: Tuesday
