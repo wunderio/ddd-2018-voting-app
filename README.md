@@ -17,3 +17,4 @@ booth or at the event.
 * Fixed interfering visualisation when by pressing buttons too fast
 * Improved standby visualisation starting state for more intuitive UX
 * New vote: Banana vs Peach
+* If request fails for any reason, just try again (at least 3 tries)

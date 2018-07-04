@@ -99,8 +99,10 @@ Event.addGroupHandler(Net.EVENT_GRP, function(ev, evdata, arg) {
   print('== Net event:', ev, evs);
 }, null);
 
-
-function cast_vote(option) {
+let option = '';
+let tries = 0;
+function cast_vote(vote) {
+  option = vote;
   print(endpoint + option);
   HTTP.query({
     url: endpoint + option,
@@ -112,7 +114,13 @@ function cast_vote(option) {
     },
     error: function(err) { 
       print('error:', err);
-      start_viz();
+      if (tries > 3) {
+        start_viz();
+        tries = 0;
+      }
+      else {
+        cast_vote(option);
+      }
     }
   });
 }
