@@ -69,7 +69,7 @@ GPIO.set_button_handler(button1, GPIO.PULL_UP, GPIO.INT_EDGE_NEG, 20, function()
   led_increment = -0.002;
   start_blinking(led1);
   
-  cast_vote('carrot');
+  cast_vote('peach');
 }, null);
 
 GPIO.set_button_handler(button2, GPIO.PULL_UP, GPIO.INT_EDGE_NEG, 20, function() {
@@ -78,7 +78,7 @@ GPIO.set_button_handler(button2, GPIO.PULL_UP, GPIO.INT_EDGE_NEG, 20, function()
   led_increment = 0.002;
   start_blinking(led2);
   
-  cast_vote('apple');
+  cast_vote('banana');
 }, null);
 
 
