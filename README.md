@@ -11,4 +11,5 @@ booth or at the event.
 * First version
 * Has button fading visualisation feature indicating standby state
 * Has blinking feature for indicating request send
+* Sends a request of the votes to Drupal installation
 
