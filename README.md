@@ -20,3 +20,6 @@ booth or at the event.
 * Improved standby visualisation starting state for more intuitive UX
 * New vote: Banana vs Peach
 * If request fails for any reason, just try again (at least 3 tries)
+
+## Version 3: Thursday
+* New vote: Cookie vs Cracker
